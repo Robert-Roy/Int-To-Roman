@@ -1,0 +1,13 @@
+#! php
+
+<?php
+
+use Symfony\Component\Console\Application;
+
+require "vendor/autoload.php";
+
+$app = new Application("PHPTask", "1.0");
+
+$app->add(new Robert\Convert());
+
+$app->run();
