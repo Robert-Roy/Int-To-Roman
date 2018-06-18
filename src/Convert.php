@@ -44,22 +44,32 @@ class Convert extends Command {
             //echo "Checking " . $i . " against " . $inputNumber . "\n";
             //echo $roman . "\n";
             if ($inputNumber / $i >= 1) {
+                // if the input number is greater than the current numeral, append it to the end
+                // and reduce current value by current numeral.
                 $roman = $roman . $romanCharacter[$i];
                 $inputNumber -= $i;
-            }
-            elseif ($firstDigit === 1) {
+            } elseif ($firstDigit === 1) {
+                // If the first digit of a numeral is one, and the remaining $inputNumber is
+                // more than 90% of it, the correct response is 1/10th the current numeral, then the
+                // current numeral.
                 if ($inputNumber / $i >= .9) {
                     $inputNumber -= $i * .9;
                     $roman = $roman . $romanCharacter[$i / 10] . $romanCharacter[$i];
                 }
+                // At this point, we need to move down to the next roman numeral, which will always be
+                // 1/2 of the current numeral since the first digit is 1. The first digit will now be 5.
                 $i = $i / 2;
                 $firstDigit = 5;
-            }
-            elseif ($firstDigit === 5) {
-                if($inputNumber / $i >= .8) {
+            } elseif ($firstDigit === 5) {
+                // If the first digit of a numeral is 5, and the remaining $inputNumber is
+                // more than 90% of it, the correct response is 1/5th the current numeral, then the
+                // current numeral.
+                if ($inputNumber / $i >= .8) {
                     $inputNumber -= $i * .8;
                     $roman = $roman . $romanCharacter[$i / 5] . $romanCharacter[$i];
                 }
+                // At this point, we need to move down to the next roman numeral, which will always be
+                // 1/5th of the current numeral since the first digit is five. The first digit will now be 1.
                 $i = $i / 5;
                 $firstDigit = 1;
             }
